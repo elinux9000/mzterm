@@ -1,0 +1,13 @@
+.qmake.stash
+main.o
+mainwindow.o
+moanzyterm2
+moc_mainwindow.cpp
+moc_mainwindow.o
+moc_predefs.h
+moc_serialportdialog.cpp
+moc_serialportdialog.o
+serialportdialog.o
+string_list.o
+ui_mainwindow.h
+ui_serialportdialog.h
