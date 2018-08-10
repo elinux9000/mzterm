@@ -8,20 +8,20 @@
 
 static char ** find_devices(void)
 {
-    char **device = NULL;
+    char **device = nullptr;
     size_t size=0;
     struct dirent *de;  // Pointer for directory entry
 
     // opendir() returns a pointer of DIR type.
     DIR *dr = opendir("/sys/class/tty");
 
-    if (dr == NULL)  // opendir returns NULL if couldn't open directory
+    if (dr == nullptr)  // opendir returns NULL if couldn't open directory
     {
         printf("Could not open current directory" );
-        return NULL;
+        return nullptr;
     }
 
-    while ((de = readdir(dr)) != NULL)
+    while ((de = readdir(dr)) != nullptr)
     {
             printf("%s\n", de->d_name);
             char check_driver[MAX_LENGTH];
@@ -44,12 +44,10 @@ static char ** find_devices(void)
                 }
             }
             else
-                return NULL;
-            free(check_driver);
-
+                return NULL;            
     }
     closedir(dr);
-    return 0;
+    return device;
 }
 SerialPortDialog::SerialPortDialog(QWidget *parent) :
     QDialog(parent),
@@ -57,7 +55,6 @@ SerialPortDialog::SerialPortDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     char **device_list = find_devices();
-    //ui->portComboBox
 
     free(device_list);
 }
