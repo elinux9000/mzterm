@@ -16,7 +16,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionSerial_port_triggered()
 {
-    ui->label->setText("Hello");
     SerialPortDialog *d = new SerialPortDialog();
     d->exec();
     delete(d);

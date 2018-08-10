@@ -6,7 +6,7 @@
 
 QT       += core gui widgets
 
-TARGET = moanzyterm2
+TARGET = mzterm
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -27,7 +27,7 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     serialportdialog.cpp \
-    string_list.c
+    string_list.cpp
 
 HEADERS += \
         mainwindow.h \

@@ -3,14 +3,15 @@
 #include <stdio.h>
 #include <dirent.h>
 #include <unistd.h>
-
+#include <string_list.h>
 #define MAX_LENGTH (1024)
 
-static char ** find_devices(void)
+static str_list_t *find_devices(void)
 {
     char **device = nullptr;
     size_t size=0;
     struct dirent *de;  // Pointer for directory entry
+    str_list_t *list = create_list();
 
     // opendir() returns a pointer of DIR type.
     DIR *dr = opendir("/sys/class/tty");
@@ -25,9 +26,8 @@ static char ** find_devices(void)
     {
             printf("%s\n", de->d_name);
             char check_driver[MAX_LENGTH];
-            if (strlen(check_driver)<MAX_LENGTH - strlen("/device/driver"))//m=10 including 0 c=8
+            if (strlen(check_driver) + strlen("/device/driver") < MAX_LENGTH )//m=10 including 0 c=8
             {
-
                 if( access( check_driver, F_OK ) != -1 )
                 {
                     // file exists
@@ -47,16 +47,16 @@ static char ** find_devices(void)
                 return NULL;            
     }
     closedir(dr);
-    return device;
+    return list;
 }
 SerialPortDialog::SerialPortDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SerialPortDialog)
 {
     ui->setupUi(this);
-    char **device_list = find_devices();
+    str_list_t *device_list = find_devices();
+    device_list->destroy(device_list);
 
-    free(device_list);
 }
 
 SerialPortDialog::~SerialPortDialog()
