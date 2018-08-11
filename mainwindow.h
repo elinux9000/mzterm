@@ -18,6 +18,8 @@ public:
 private slots:
     void on_actionSerial_port_triggered();
 
+    void on_actionRun_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

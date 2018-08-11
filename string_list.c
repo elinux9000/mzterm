@@ -3,6 +3,7 @@
 #include <string.h>
 #include <string_list.h>
 
+//str_list_imp_s implements the list.  It "inherits" from str_list_s
 struct str_list_imp_s
 {
     struct str_list_s parent;
@@ -21,6 +22,7 @@ void destroy_list(str_list_t *l)
         {
             free(list->arr[i]);
         }
+        free(list->arr);
         free(list);
     }
 }
@@ -42,7 +44,7 @@ static void add(str_list_t *l,char *item)
 }
 str_list_t *create_list(void)
 {
-    str_list_imp_t *list = (str_list_imp_t *)calloc(sizeof(list),1);
+    struct str_list_imp_s *list = (str_list_imp_t *)calloc(sizeof(str_list_imp_t),1);
     if (list)
     {
         list->size=0;

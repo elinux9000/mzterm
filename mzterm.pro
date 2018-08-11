@@ -27,7 +27,7 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     serialportdialog.cpp \
-    string_list.cpp
+    string_list.c
 
 HEADERS += \
         mainwindow.h \
