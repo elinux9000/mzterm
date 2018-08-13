@@ -11,7 +11,9 @@ extern "C"
     struct str_list_s
     {
         void (*destroy)(struct str_list_s *list);
-        void (*add)(struct str_list_s *list,char *item);
+        void (*add)(struct str_list_s *list,const char *item);
+        char *(*next)(struct str_list_s *list);
+        void (*sort)(struct str_list_s *list);
     };
     typedef struct str_list_s str_list_t;
 

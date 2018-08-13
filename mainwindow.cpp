@@ -2,12 +2,22 @@
 #include "ui_mainwindow.h"
 #include "serialportdialog.h"
 #include "string_list.h"
+#include "serial_port.h"
+#include <QDebug>
 
-MainWindow::MainWindow(QWidget *parent) :
+/**MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+}**/
+MainWindow::MainWindow(SerialPort *sp) :
+    QMainWindow(nullptr),
+    ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    serial = sp;    
 }
 
 MainWindow::~MainWindow()
@@ -17,7 +27,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionSerial_port_triggered()
 {
-    SerialPortDialog *d = new SerialPortDialog();
+    SerialPortDialog *d = new SerialPortDialog(serial);
     d->exec();
     delete(d);
 

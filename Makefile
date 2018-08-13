@@ -53,12 +53,14 @@ OBJECTS_DIR   = ./
 SOURCES       = main.cpp \
 		mainwindow.cpp \
 		serialportdialog.cpp \
-		string_list.c moc_mainwindow.cpp \
+		string_list.c \
+		serial_port.cpp moc_mainwindow.cpp \
 		moc_serialportdialog.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		serialportdialog.o \
 		string_list.o \
+		serial_port.o \
 		moc_mainwindow.o \
 		moc_serialportdialog.o
 DIST          = ../../myapps/qt/5.11.1/gcc_64/mkspecs/features/spec_pre.prf \
@@ -229,10 +231,13 @@ DIST          = ../../myapps/qt/5.11.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../../myapps/qt/5.11.1/gcc_64/mkspecs/features/lex.prf \
 		mzterm.pro mainwindow.h \
 		serialportdialog.h \
-		string_list.h main.cpp \
+		string_list.h \
+		my_constants.h \
+		serial_port.h main.cpp \
 		mainwindow.cpp \
 		serialportdialog.cpp \
-		string_list.c
+		string_list.c \
+		serial_port.cpp
 QMAKE_TARGET  = mzterm
 DESTDIR       = 
 TARGET        = mzterm
@@ -600,8 +605,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../myapps/qt/5.11.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h serialportdialog.h string_list.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp serialportdialog.cpp string_list.c $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h serialportdialog.h string_list.h my_constants.h serial_port.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp serialportdialog.cpp string_list.c serial_port.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui serialportdialog.ui $(DISTDIR)/
 
 
@@ -743,6 +748,10 @@ moc_mainwindow.cpp: ../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/QMainWindow 
 		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qtouchdevice.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qicon.h \
+		serial_port.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QString \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QSettings \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qsettings.h \
 		mainwindow.h \
 		moc_predefs.h \
 		../../myapps/qt/5.11.1/gcc_64/bin/moc
@@ -852,6 +861,10 @@ moc_serialportdialog.cpp: ../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/QDialo
 		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qfiledevice.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qvector2d.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qtouchdevice.h \
+		serial_port.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QString \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QSettings \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qsettings.h \
 		serialportdialog.h \
 		moc_predefs.h \
 		../../myapps/qt/5.11.1/gcc_64/bin/moc
@@ -989,6 +1002,10 @@ main.o: main.cpp mainwindow.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qtouchdevice.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qicon.h \
+		serial_port.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QString \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QSettings \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qsettings.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/QApplication \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1105,6 +1122,10 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qtouchdevice.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qicon.h \
+		serial_port.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QString \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QSettings \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qsettings.h \
 		ui_mainwindow.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QVariant \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/QAction \
@@ -1141,7 +1162,9 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/QWidget \
 		serialportdialog.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/QDialog \
-		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qdialog.h
+		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qdialog.h \
+		string_list.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 serialportdialog.o: serialportdialog.cpp serialportdialog.h \
@@ -1249,6 +1272,10 @@ serialportdialog.o: serialportdialog.cpp serialportdialog.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qfiledevice.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qvector2d.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qtouchdevice.h \
+		serial_port.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QString \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QSettings \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qsettings.h \
 		ui_serialportdialog.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QVariant \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/QApplication \
@@ -1258,6 +1285,10 @@ serialportdialog.o: serialportdialog.cpp serialportdialog.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qinputmethod.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/QCheckBox \
+		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qcheckbox.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qicon.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/QComboBox \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qcombobox.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
@@ -1265,7 +1296,6 @@ serialportdialog.o: serialportdialog.cpp serialportdialog.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qvalidator.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qregularexpression.h \
-		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qicon.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qslider.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qabstractslider.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qstyle.h \
@@ -1283,12 +1313,129 @@ serialportdialog.o: serialportdialog.cpp serialportdialog.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qlabel.h \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/QPushButton \
 		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qpushbutton.h \
-		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qabstractbutton.h \
-		string_list.h
+		string_list.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QDebug \
+		my_constants.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/Qt \
+		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/QMessageBox \
+		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qmessagebox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o serialportdialog.o serialportdialog.cpp
 
 string_list.o: string_list.c string_list.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o string_list.o string_list.c
+
+serial_port.o: serial_port.cpp serial_port.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QString \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qstring.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qchar.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qglobal.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qconfig.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qtcore-config.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qlogging.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qflags.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qatomic.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qmutex.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qnumeric.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qversiontagging.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qbytearray.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qrefcount.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qnamespace.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qarraydata.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qstringliteral.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qstringview.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qstringbuilder.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QSettings \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qsettings.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qobject.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qobjectdefs.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qlist.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qiterator.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qhashfunctions.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qpair.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qbytearraylist.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qstringlist.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qregexp.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qmetatype.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qvariant.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qmap.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qdebug.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qhash.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qtextstream.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qiodevice.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qlocale.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qshareddata.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qvector.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qpoint.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qset.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qsharedpointer.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		my_constants.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/QDebug \
+		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/QMessageBox \
+		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qmessagebox.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qtguiglobal.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qtgui-config.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qdialog.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qwidget.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qwindowdefs.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qmargins.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qpaintdevice.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qrect.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qsize.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qpalette.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qcolor.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qrgb.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qrgba64.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qbrush.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qmatrix.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qpolygon.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qregion.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qdatastream.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qline.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qtransform.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qpainterpath.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qimage.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qpixelformat.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qpixmap.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qfont.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qfontmetrics.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qfontinfo.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qcursor.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qkeysequence.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qevent.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qurl.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qurlquery.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qfile.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtCore/qfiledevice.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qvector2d.h \
+		../../myapps/qt/5.11.1/gcc_64/include/QtGui/qtouchdevice.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o serial_port.o serial_port.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

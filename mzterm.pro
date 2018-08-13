@@ -21,18 +21,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 CONFIG += c++11
-CONFIG += console
+#CONFIG += console
 
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
     serialportdialog.cpp \
-    string_list.c
+    string_list.c \
+    serial_port.cpp \
+    worker.cpp
 
 HEADERS += \
         mainwindow.h \
     serialportdialog.h \
-    string_list.h
+    string_list.h \
+    my_constants.h \
+    serial_port.h \
+    worker.h
 
 FORMS += \
         mainwindow.ui \
